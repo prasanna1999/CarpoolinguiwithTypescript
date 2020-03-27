@@ -1,0 +1,58 @@
+.profileInfo{
+    padding: 200px 50px 20px 50px;
+    height: 100%;
+    background: url("D:/carpoolingui/src/Images/img4.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-attachment: fixed;
+    background-position: bottom;
+
+    .successmessage{
+        width: max-content;
+        float: right;
+    }
+
+    .formcard{
+        width: max-content;
+        max-width: max-content;
+        min-width: 500px;
+        border-radius: 5px;
+        padding: 30px 40px;
+        margin: auto;
+
+        .error{
+            font-size: 20px;
+            color: red;
+            display: inline-block;
+        }
+
+        .formdata{
+            label{
+                font-size: 25px;
+            }
+
+            input[type=text]{
+                font-size: 20px;
+                border-bottom: groove;
+            }
+
+            .error{
+                font-size: 20px;
+                color: red;
+                display: inline-block;
+            }
+        }
+            
+        input[type=button]{
+            padding: 20px 30px;
+            border: none;
+            color: white;
+            border-radius: 40px;
+            outline: none;
+            font-size: 20px;
+            background-color: #9319FF;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+.pageNotFound{
+    background: url("D:/carpoolingui/src/Images/img4.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-attachment: fixed;
+    min-height: 100%;
+    background-position: bottom;
+    margin-top: 200px;
+
+    .text{
+        font-size: 100px;
+        margin: auto;
+        display: table;
+        font-family: sans-serif;
+    }
+    
+    input{
+        background-color: #9319FF;
+        padding: 20px 40px;
+        margin: auto;
+        display: table;
+        color: white;
+        border-radius: 40px;
+        border: none;
+        outline: none;
+    }
+}

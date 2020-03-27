@@ -1,0 +1,98 @@
+.myRides{
+    background: url("D:/carpoolingui/src/Images/img4.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-attachment: fixed;
+    min-height: 100%;
+    padding-top: 200px;
+    background-position: bottom;
+    font-family: Arial;
+
+    .bookedRidesTitle{
+        display: table;
+        color: white;
+        background-color: #9319FF;
+        padding: 10px 50px;
+        margin: 20px;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+
+    .heading{
+        font-size: 30px;
+        color: #9319FF;
+    }
+
+    .cards{
+        padding: 20px;
+        box-shadow: 1px 10px 8px 1px #EBEBEB;
+        border-top: 1px outset;
+        border-radius: 10px;
+        margin: 0 25px;
+        background-color: white;
+        margin-bottom: 5px;
+        max-width: initial;
+
+        
+        .name{
+            font-size: 40px;
+        }
+
+        .details{
+            width: 100%;
+
+            img{
+                width: 50px;
+                height: 50px;
+                float: right;
+            }
+            .names{
+                color: gray;
+                font-size: 15px;
+                padding: 10px 0;
+                font-size: 20px;
+            }
+
+            .values{
+                padding: 10px 0;
+                font-size: 20px;
+                .circleicon{
+                    color: #9319FF;
+                    font-size: 25px;
+                    padding-left: 10px;
+                }
+                .poiicon{
+                    color: #9319FF;
+                    font-size: 25px;
+                }
+
+                .circle{
+                    font-size: 15px;
+                    color: #E0E0E0;
+                    padding-left: 5px;
+                }
+                .button{
+                    padding: 15px 20px;
+                    background-color: #9319FF;
+                    color: white;
+                    border: none;
+                    border-radius: 30px;
+                    outline: none;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .offeredRidesTitle{
+        display: table;
+        color: white;
+        background-color: #FFAC19;
+        padding: 10px 50px;
+        margin: 20px;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+}
+.hidedisplay{
+    display: none;
+}

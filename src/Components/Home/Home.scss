@@ -1,0 +1,45 @@
+.home{
+    background: url("D:/carpoolingui/src/Images/img3.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    padding-top : 190px;
+    height: 80%;
+    background-position: bottom;
+
+    .content{
+      text-align: center;
+
+      .greet{
+        font-family: 'Khula';
+        font-weight: 900;
+        font-size: 40px;
+        padding: 20px 0;
+        text-align: left;
+        margin-left: 28%;
+      }
+
+      .buttons{
+        padding: 10px 20px;
+        display: inline-block;
+
+        button{
+          width: 400px;
+          height: 260px;
+          color: white;
+          border-radius: 10px;
+          cursor: pointer;
+          border: 0px;
+          font-size: 40px;
+          outline: none;
+        }
+
+        .bookbutton{
+          background-color: #9319FF;
+        }
+  
+        .offerbutton{
+          background-color: #FFAC19;
+        }
+      }
+    }
+}
