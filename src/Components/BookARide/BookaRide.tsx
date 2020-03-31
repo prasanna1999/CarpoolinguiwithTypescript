@@ -7,6 +7,7 @@ import logo from 'D:/carpoolingui/src/Images/logo.png';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { toast } from 'react-toastify';
 import 'font-awesome/css/font-awesome.min.css';
+import {AvailableRides,UserNames} from './BookARideService';
 
 class BookARide extends React.Component<any,any> {
     constructor(props:any) {
@@ -70,21 +71,25 @@ class BookARide extends React.Component<any,any> {
             this.setState({ isValid: true });
             this.setState({ isSubmitClicked: true });
             let date = this._onFormatDate(this.state.Date) + "T" + this.state.Time;
-            axios.get('https://localhost:44334/api/ride/' + this.state.From + "/" + this.state.To + "/" + this.state.NoOfSeats + "/" + date)
-                .then(response => {
-                    this.setState({ AvailableRides: response.data })
-                    let users;
-                    this.state.AvailableRides.forEach(function (ride:any) {
-                        let userId;
-                        axios.get('https://localhost:44334/api/user/' + ride.userId)
-                            .then(response => {
-                                // this.setState({ userName: this.state.userName.concat(response.data.name) })
-                            })
-                    }, this);
-                })
-                .catch(error => {
-                    this.setState({ AvailableRide: "" })
-                })
+            // axios.get('https://localhost:44334/api/ride/' + this.state.From + "/" + this.state.To + "/" + this.state.NoOfSeats + "/" + date)
+            //     .then(response => {
+            //         this.setState({ AvailableRides: response.data })
+            //         let users;
+            //         this.state.AvailableRides.forEach(function (ride:any) {
+            //             let userId;
+            //             axios.get('https://localhost:44334/api/user/' + ride.userId)
+            //                 .then(response => {
+            //                     // this.setState({ userName: this.state.userName.concat(response.data.name) })
+            //                 })
+            //         }, this);
+            //     })
+            //     .catch(error => {
+            //         this.setState({ AvailableRide: "" })
+            //     })
+            this.setState({ AvailableRides: AvailableRides(this.state.From,this.state.To,this.state.NoOfSeats,date) })
+            this.state.AvailableRides.forEach(function (ride:any) {
+                this.setState({ userName:this.state.userName.concat(UserNames(ride.userId)) })
+            })
         }
     }
 
