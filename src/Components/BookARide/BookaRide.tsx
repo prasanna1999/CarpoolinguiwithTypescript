@@ -7,7 +7,7 @@ import logo from 'D:/carpoolingui/src/Images/logo.png';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { toast } from 'react-toastify';
 import 'font-awesome/css/font-awesome.min.css';
-import {AvailableRides,UserNames} from './BookARideService';
+import {AvailableRides,UserNames,BookRide} from './BookARideService';
 
 class BookARide extends React.Component<any,any> {
     constructor(props:any) {
@@ -147,24 +147,25 @@ class BookARide extends React.Component<any,any> {
 
     handleBooking = (id:any) => {
         let index = this.state.AvailableRides.findIndex((x: { id: any; }) => x.id == id);
-        axios.post('https://localhost:44334/api/booking/', {
-            From: this.state.From,
-            To: this.state.To,
-            NoOfPersons: Number(this.state.NoOfSeats),
-            RideId: id,
-            UserId: localStorage.getItem('Id'),
-            Price: this.state.AvailableRides[index].price,
-            Date: this.state.AvailableRides[index].date,
-            Time: this.state.AvailableRides[index].time,
-            Status: 0,
-            Id: id + localStorage.getItem('Id')
-        })
-            .then(response => {
-                toast("Waiting for approval!");
-            })
-            .catch(error => {
-                toast("Unable book this ride")
-            })
+        BookRide(this.state.From,this.state.To,this.state.NoOfSeats,id,index,AvailableRides);
+        // axios.post('https://localhost:44334/api/booking/', {
+        //     From: this.state.From,
+        //     To: this.state.To,
+        //     NoOfPersons: Number(this.state.NoOfSeats),
+        //     RideId: id,
+        //     UserId: localStorage.getItem('Id'),
+        //     Price: this.state.AvailableRides[index].price,
+        //     Date: this.state.AvailableRides[index].date,
+        //     Time: this.state.AvailableRides[index].time,
+        //     Status: 0,
+        //     Id: id + localStorage.getItem('Id')
+        // })
+        //     .then(response => {
+        //         toast("Waiting for approval!");
+        //     })
+        //     .catch(error => {
+        //         toast("Unable book this ride")
+        //     })
     }
     index = 0
 

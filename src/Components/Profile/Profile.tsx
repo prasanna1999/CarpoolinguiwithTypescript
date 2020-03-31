@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import User from '../User';
+import {ProfileData} from './ProfileServise';
 toast.configure({
     autoClose: 2000,
     draggable: false,
@@ -23,19 +24,20 @@ class Profile extends React.Component<any,any> {
         }
         else {
             this.setState({ isValid: true });
-            axios.put('https://localhost:44334/api/user/' + localStorage.getItem('Id'), {
-                Name: this.state.Name,
-                Email: this.state.Email,
-                PhoneNumber: this.state.PhoneNumber
-            })
-                .then(response => {
-                    localStorage.setItem('Name', this.state.Name);
-                    localStorage.setItem('PhoneNumber', this.state.PhoneNumber);
-                    toast("Update SuccessFul !");
-                })
-                .catch(error => {
-                    toast("Unable to update your profile")
-                })
+            ProfileData(this.state.Name,this.state.Email,this.state.PhoneNumber)
+            // axios.put('https://localhost:44334/api/user/' + localStorage.getItem('Id'), {
+            //     Name: this.state.Name,
+            //     Email: this.state.Email,
+            //     PhoneNumber: this.state.PhoneNumber
+            // })
+            //     .then(response => {
+            //         localStorage.setItem('Name', this.state.Name);
+            //         localStorage.setItem('PhoneNumber', this.state.PhoneNumber);
+            //         toast("Update SuccessFul !");
+            //     })
+            //     .catch(error => {
+            //         toast("Unable to update your profile")
+            //     })
         }
     }
     validateForm = (errors:any) => {

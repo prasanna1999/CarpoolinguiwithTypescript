@@ -7,6 +7,8 @@ import 'office-ui-fabric-react/dist/css/fabric.css';
 import './MyRides.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import {Rides,Bookings,UserId,UserName} from './MyRidesService';
+import { BookingData } from '../BookingDetails/BookingDetailsService';
 
 class MyRides extends React.Component<any,any> {
     constructor(props:any) {
@@ -15,40 +17,52 @@ class MyRides extends React.Component<any,any> {
     }
     componentDidMount() {
         console.log('Hello');
-        axios.get('https://localhost:44334/api/ride/userRides/' + localStorage.getItem('Id'))
-            .then(response => {
-                console.log('Hello Response');
-                this.setState({ Rides: response.data },()=>{
-                    console.log('Hello Response inside callback');
-                })
-                console.log('Hello Response after setstate');
-            })
-            .catch(error => {
-                this.setState({ Rides: [] })
-            })
-        axios.get('https://localhost:44334/api/booking/userBookings/' + localStorage.getItem('Id'))
-            .then(response => {
-                this.setState({ Bookings: response.data })
-                let users;
-                this.state.Bookings.forEach(function (booking:any) {
-                    console.log(booking)
-                    let userId;
-                    axios.get('https://localhost:44334/api/ride/' + booking.rideId)
-                        .then(response => {
-                            console.log(response.data)
-                            userId = response.data.userId
-                            axios.get('https://localhost:44334/api/user/' + userId)
-                                .then(response => {
-                                    console.log(response.data)
-                                    // this.setState({ userName: this.state.userName.concat(response.data.name) })
-                                })
-                        })
-                }, this);
-            })
-            .catch(error => {
-                this.setState({ Bookings: [] })
-            })
-            console.log('Hello Something');
+        // axios.get('https://localhost:44334/api/ride/userRides/' + localStorage.getItem('Id'))
+        //     .then(response => {
+        //         console.log('Hello Response');
+        //         this.setState({ Rides: response.data },()=>{
+        //             console.log('Hello Response inside callback');
+        //         })
+        //         console.log('Hello Response after setstate');
+        //     })
+        //     .catch(error => {
+        //         this.setState({ Rides: [] })
+        //     })
+        try{
+            this.setState({Rides:Rides()})
+        }
+        catch{
+            this.setState({Rides:[]})
+        }
+        this.setState({Bookings:Bookings})
+        this.state.Bookings.forEach(function (booking:any) {
+            console.log(booking)
+            let userId;
+            userId=UserId(booking.rideId);
+            this.setState(UserName:this.state.userName.concat(UserName))
+        })
+        // axios.get('https://localhost:44334/api/booking/userBookings/' + localStorage.getItem('Id'))
+        //     .then(response => {
+        //         this.setState({ Bookings: response.data })
+        //         let users;
+        //         this.state.Bookings.forEach(function (booking:any) {
+        //             console.log(booking)
+        //             let userId;
+        //             axios.get('https://localhost:44334/api/ride/' + booking.rideId)
+        //                 .then(response => {
+        //                     console.log(response.data)
+        //                     userId = response.data.userId
+        //                     axios.get('https://localhost:44334/api/user/' + userId)
+        //                         .then(response => {
+        //                             console.log(response.data)
+        //                             this.setState({ userName: this.state.userName.concat(response.data.name) })
+        //                         })
+        //                 })
+        //         }, this);
+        //     })
+        //     .catch(error => {
+        //         this.setState({ Bookings: [] })
+        //     })
     }
     index = 0
     render() {

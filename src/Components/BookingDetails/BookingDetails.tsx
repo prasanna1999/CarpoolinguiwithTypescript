@@ -4,6 +4,7 @@ import './BookingDetails.scss';
 import axios from 'axios';
 import { BookingStatus } from '../enum';
 import { Link } from 'react-router-dom';
+import {BookingData,CancelBooking} from './BookingDetailsService';
 
 class BookingDetails extends React.Component<any,any> {
     constructor(props:any) {
@@ -13,33 +14,40 @@ class BookingDetails extends React.Component<any,any> {
     id:string ="";
     componentDidMount() {
         this.id = this.props.match.params.id;
-        axios.get('https://localhost:44334/api/booking/' + this.id)
-            .then(response => {
-                if (response.data.status == 0 && new Date(response.data.date) < new Date()) {
-                    axios.put('https://localhost:44334/api/booking/' + response.data.id, {
-                        Status: 2,
-                        NoOfVacentSeats: response.data.noOfSeats
-                    })
-                    response.data.status = 2;
-                }
-                this.setState({ Booking: response.data })
-            })
-            .catch(error => {
-                console.log("Cannot get data");
-                this.setState({ Booking: [] })
-            })
+        // axios.get('https://localhost:44334/api/booking/' + this.id)
+        //     .then(response => {
+        //         if (response.data.status == 0 && new Date(response.data.date) < new Date()) {
+        //             axios.put('https://localhost:44334/api/booking/' + response.data.id, {
+        //                 Status: 2,
+        //                 NoOfVacentSeats: response.data.noOfSeats
+        //             })
+        //             response.data.status = 2;
+        //         }
+        //         this.setState({ Booking: response.data })
+        //     })
+        //     .catch(error => {
+        //         console.log("Cannot get data");
+        //         this.setState({ Booking: [] })
+        //     })
+        try{
+            this.setState({Booking:BookingData(this.id)})
+        }
+        catch{
+            this.setState({ Booking: [] })
+        }
     }
     cancelBooking = () => {
-        axios.put('https://localhost:44334/api/booking/' + this.state.Booking.id, {
-            Status: 3,
-            NoOfVacentSeats: this.state.Booking.noOfSeats
-        })
-            .then(response => {
-                this.componentDidMount()
-            })
-            .catch(error => {
-                console.log("Unable to cancel Booking");
-            })
+        // axios.put('https://localhost:44334/api/booking/' + this.state.Booking.id, {
+        //     Status: 3,
+        //     NoOfVacentSeats: this.state.Booking.noOfSeats
+        // })
+        //     .then(response => {
+        //         this.componentDidMount()
+        //     })
+        //     .catch(error => {
+        //         console.log("Unable to cancel Booking");
+        //     })
+        CancelBooking(this.state.Booking)
     }
     render() {
         return (

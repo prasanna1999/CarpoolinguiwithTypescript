@@ -4,6 +4,7 @@ import './OfferRide.scss';
 import { DocumentCard, Icon, DatePicker, Toggle } from 'office-ui-fabric-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {AddVehicle,AddRide,AddLocations} from './OfferARideService';
 toast.configure({
     autoClose: 2000,
     draggable: false,
@@ -54,52 +55,55 @@ class OfferRide extends React.Component<any,any> {
             this.setState({ isStopValid: true });
             let userId = localStorage.getItem('Id');
             let date = this._onFormatDate(this.state.Date) + 'T' + this.state.Time + ':00';
-            axios.post('https://localhost:44334/api/vehicle/',
-                {
-                    Id: userId + this.state.VehicleModel,
-                    Model: this.state.VehicleModel,
-                    CarNumber: this.state.VehicleNumber,
-                    UserId: userId
-                })
-                .catch(error => {
-                    toast("Unable to add ride!");
-                })
-            axios.post('https://localhost:44334/api/ride/',
-                {
-                    UserId: userId,
-                    From: this.state.From,
-                    To: this.state.To,
-                    type: 2,
-                    VehicleId: userId + this.state.VehicleModel,
-                    Id: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date),
-                    Distance: 10,
-                    NoOfVacentSeats: Number(this.state.NoOfSeats),
-                    Price: Number(this.state.Price),
-                    Date: date,
-                    Time: date,
-                    EndDate: date
-                })
-                .catch(error => {
-                    toast("Unable to add ride!");
-                })
+            // axios.post('https://localhost:44334/api/vehicle/',
+            //     {
+            //         Id: userId + this.state.VehicleModel,
+            //         Model: this.state.VehicleModel,
+            //         CarNumber: this.state.VehicleNumber,
+            //         UserId: userId
+            //     })
+            //     .catch(error => {
+            //         toast("Unable to add ride!");
+            //     })
+            AddVehicle(userId,this.state.VehicleModel,this.state.VehicleNumber);
+            // axios.post('https://localhost:44334/api/ride/',
+            //     {
+            //         UserId: userId,
+            //         From: this.state.From,
+            //         To: this.state.To,
+            //         type: 2,
+            //         VehicleId: userId + this.state.VehicleModel,
+            //         Id: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date),
+            //         Distance: 10,
+            //         NoOfVacentSeats: Number(this.state.NoOfSeats),
+            //         Price: Number(this.state.Price),
+            //         Date: date,
+            //         Time: date,
+            //         EndDate: date
+            //     })
+            //     .catch(error => {
+            //         toast("Unable to add ride!");
+            //     })
+            AddRide(userId,this.state.From,this.state.To,this.state.VehicleModel,this.state.NoOfSeats,this.state.Price,date,this._onFormatDate(date))
             let locations = this.state.Stops;
             if (this.locationName != "") {
                 locations.push(this.locationName);
             }
             locations.map((location:any) => {
-                axios.post('https://localhost:44334/api/location/',
-                    {
-                        RideId: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date),
-                        LocationName: location,
-                        Distance: 5,
-                        Id: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date) + location
-                    })
-                    .then(response => {
-                        toast("Ride Added SuccessFully!");
-                    })
-                    .catch(error => {
-                        toast("Unable to add ride!");
-                    })
+                AddLocations(userId,this.state.From,this.state.To,this._onFormatDate(this.state.Date),location)
+                // axios.post('https://localhost:44334/api/location/',
+                //     {
+                //         RideId: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date),
+                //         LocationName: location,
+                //         Distance: 5,
+                //         Id: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date) + location
+                //     })
+                //     .then(response => {
+                //         toast("Ride Added SuccessFully!");
+                //     })
+                //     .catch(error => {
+                //         toast("Unable to add ride!");
+                //     })
             })
             this.setState({
                 noOfStops: 1, id: "", isSubmitClicked: false, isValid: true, isStopValid: true, seatid: "",
