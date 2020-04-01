@@ -18,13 +18,13 @@ class Profile extends React.Component<any,any> {
             errors: { Name: '', Email: '', PhoneNumber: '' }
         };
     }
-    update = () => {
+    update = async () => {
         if (!this.validateForm(this.state.errors)) {
             this.setState({ isValid: false });
         }
         else {
             this.setState({ isValid: true });
-            ProfileData(this.state.Name,this.state.Email,this.state.PhoneNumber)
+            await ProfileData(this.state.Name,this.state.Email,this.state.PhoneNumber)
             // axios.put('https://localhost:44334/api/user/' + localStorage.getItem('Id'), {
             //     Name: this.state.Name,
             //     Email: this.state.Email,

@@ -47,7 +47,7 @@ class OfferRide extends React.Component<any,any> {
         this.locationName = e.target.value;
     }
 
-    OfferRide = () => {
+    OfferRide = async () => {
         if (!this.validateForm(this.state.stoperrors)) {
             this.setState({ isStopValid: false });
         }
@@ -65,7 +65,7 @@ class OfferRide extends React.Component<any,any> {
             //     .catch(error => {
             //         toast("Unable to add ride!");
             //     })
-            AddVehicle(userId,this.state.VehicleModel,this.state.VehicleNumber);
+            await AddVehicle(userId,this.state.VehicleModel,this.state.VehicleNumber);
             // axios.post('https://localhost:44334/api/ride/',
             //     {
             //         UserId: userId,
@@ -84,13 +84,13 @@ class OfferRide extends React.Component<any,any> {
             //     .catch(error => {
             //         toast("Unable to add ride!");
             //     })
-            AddRide(userId,this.state.From,this.state.To,this.state.VehicleModel,this.state.NoOfSeats,this.state.Price,date,this._onFormatDate(date))
+            await AddRide(userId,this.state.From,this.state.To,this.state.VehicleModel,this.state.NoOfSeats,this.state.Price,date,this._onFormatDate(date))
             let locations = this.state.Stops;
             if (this.locationName != "") {
                 locations.push(this.locationName);
             }
-            locations.map((location:any) => {
-                AddLocations(userId,this.state.From,this.state.To,this._onFormatDate(this.state.Date),location)
+            locations.map(async (location:any) => {
+                await AddLocations(userId,this.state.From,this.state.To,this._onFormatDate(this.state.Date),location)
                 // axios.post('https://localhost:44334/api/location/',
                 //     {
                 //         RideId: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date),

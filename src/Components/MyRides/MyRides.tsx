@@ -29,7 +29,7 @@ class MyRides extends React.Component<any,any> {
         //         this.setState({ Rides: [] })
         //     })
         try{
-            this.setState({Rides:Rides()})
+            this.setState({Rides:await Rides()})
         }
         catch{
             this.setState({Rides:[]})

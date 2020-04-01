@@ -12,7 +12,7 @@ class BookingDetails extends React.Component<any,any> {
         this.state = { Booking: [] }
     }
     id:string ="";
-    componentDidMount() {
+    async componentDidMount() {
         this.id = this.props.match.params.id;
         // axios.get('https://localhost:44334/api/booking/' + this.id)
         //     .then(response => {
@@ -30,7 +30,7 @@ class BookingDetails extends React.Component<any,any> {
         //         this.setState({ Booking: [] })
         //     })
         try{
-            this.setState({Booking:BookingData(this.id)})
+            this.setState({Booking:await BookingData(this.id)})
         }
         catch{
             this.setState({ Booking: [] })

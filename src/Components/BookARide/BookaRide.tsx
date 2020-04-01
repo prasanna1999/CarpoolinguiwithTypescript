@@ -63,7 +63,7 @@ class BookARide extends React.Component<any,any> {
         return valid;
     }
 
-    showMatchedBooking() {
+    async showMatchedBooking() {
         if (!this.validateForm(this.state.errors)) {
             this.setState({ isValid: false });
         }
@@ -86,9 +86,9 @@ class BookARide extends React.Component<any,any> {
             //     .catch(error => {
             //         this.setState({ AvailableRide: "" })
             //     })
-            this.setState({ AvailableRides: AvailableRides(this.state.From,this.state.To,this.state.NoOfSeats,date) })
-            this.state.AvailableRides.forEach(function (ride:any) {
-                this.setState({ userName:this.state.userName.concat(UserNames(ride.userId)) })
+            this.setState({ AvailableRides: await AvailableRides(this.state.From,this.state.To,this.state.NoOfSeats,date) })
+            this.state.AvailableRides.forEach(async function (ride:any) {
+                this.setState({ userName:this.state.userName.concat(await UserNames(ride.userId)) })
             })
         }
     }
@@ -145,9 +145,9 @@ class BookARide extends React.Component<any,any> {
         return (date.getFullYear()) + '-' + (month) + '-' + (day);
     };
 
-    handleBooking = (id:any) => {
+    handleBooking = async (id:any) => {
         let index = this.state.AvailableRides.findIndex((x: { id: any; }) => x.id == id);
-        BookRide(this.state.From,this.state.To,this.state.NoOfSeats,id,index,AvailableRides);
+        await BookRide(this.state.From,this.state.To,this.state.NoOfSeats,id,index,AvailableRides);
         // axios.post('https://localhost:44334/api/booking/', {
         //     From: this.state.From,
         //     To: this.state.To,
