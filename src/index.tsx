@@ -4,10 +4,20 @@ import './index.sass';
 import App from './Components/App/App';
 import * as serviceWorker from './serviceWorker';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+import { usePromiseTracker } from "react-promise-tracker";
+import Loader from 'react-loader-spinner';
 
 initializeIcons();
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const LoadingIndicator = (props:any) => {
+    const { promiseInProgress } = usePromiseTracker();
+   return (
+    promiseInProgress &&
+    <div><Loader type="ThreeDots" color="#2BAD60"/></div>
+  );  
+}
+
+ReactDOM.render(<div><App /><LoadingIndicator/></div>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

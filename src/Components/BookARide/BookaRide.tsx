@@ -8,6 +8,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { toast } from 'react-toastify';
 import 'font-awesome/css/font-awesome.min.css';
 import {AvailableRides,UserNames,BookRide} from './BookARideService';
+import { trackPromise } from 'react-promise-tracker';
 
 class BookARide extends React.Component<any,any> {
     constructor(props:any) {
@@ -86,7 +87,7 @@ class BookARide extends React.Component<any,any> {
             //     .catch(error => {
             //         this.setState({ AvailableRide: "" })
             //     })
-            this.setState({ AvailableRides: await AvailableRides(this.state.From,this.state.To,this.state.NoOfSeats,date) })
+            this.setState({ AvailableRides: trackPromise(await AvailableRides(this.state.From,this.state.To,this.state.NoOfSeats,date)) })
             this.state.AvailableRides.forEach(async function (ride:any) {
                 this.setState({ userName:this.state.userName.concat(await UserNames(ride.userId)) })
             })
