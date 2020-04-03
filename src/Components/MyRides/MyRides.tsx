@@ -15,7 +15,7 @@ class MyRides extends React.Component<any,any> {
         super(props);
         this.state = { Rides: [], Bookings: [], userName: [] };
     }
-    componentDidMount() {
+    async componentDidMount() {
         console.log('Hello');
         // axios.get('https://localhost:44334/api/ride/userRides/' + localStorage.getItem('Id'))
         //     .then(response => {
@@ -39,7 +39,7 @@ class MyRides extends React.Component<any,any> {
             console.log(booking)
             let userId;
             userId=UserId(booking.rideId);
-            this.setState(UserName:this.state.userName.concat(UserName))
+            //this.setState(UserName:this.state.userName.concat(UserName))
         })
         // axios.get('https://localhost:44334/api/booking/userBookings/' + localStorage.getItem('Id'))
         //     .then(response => {

@@ -10,9 +10,19 @@ import RideDetails from '../RideDetails/RideDetails';
 import BookingDetails from '../BookingDetails/BookingDetails';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import {userContext} from '../Constants';
 
-function App() {
+class App extends React.Component<any,any> {
+  constructor(props:any){
+    super(props);
+    this.state={user:[]};
+  }
+  componentDidMount(){
+    this.setState({user:this.props.user});
+  }
+  render(){
   return (
+    <userContext.Provider value={this.state.user}>
     <BrowserRouter>
       <Route exact path="/">
         <Redirect to="/signup" />
@@ -30,7 +40,9 @@ function App() {
         <Route path="" component={NotFound}/>
       </Switch>
     </BrowserRouter>
+    </userContext.Provider>
   );
+  }
 }
 
 export default App;

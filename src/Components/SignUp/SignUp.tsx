@@ -4,11 +4,13 @@ import './SignUp.scss';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import App from '../App/App';
 
 class SignUp extends React.Component<any,any> {
     constructor(props:any) {
         super(props);
         this.state = ({
+            isUserLoggedIn:false,
             isLoginClicked: false,
             isUserExists: false,
             isCredentialsValidated: false,
@@ -17,8 +19,10 @@ class SignUp extends React.Component<any,any> {
     }
     componentDidUpdate() {
         console.log(localStorage.getItem('Id') != null&&'')
-        if (localStorage.getItem('Id') != null&&'')
-            this.props.history.push("/ui/home");
+        if (localStorage.getItem('Id') != null&&''){
+            this.setState({isUserLoggedIn:true});
+            //this.props.history.push("/ui/home");
+        }
     }
     changeState() {
         let status=!this.state.isSignUpSelected;
@@ -70,7 +74,8 @@ class SignUp extends React.Component<any,any> {
             localStorage.setItem('Email', this.state.Email);
             localStorage.setItem('Id', this.state.Email.slice(0, index) + this.state.Email);
             localStorage.setItem('PhoneNumber', '9876543210');
-            this.props.history.push("/ui/home");
+            this.setState({isUserLoggedIn:true});
+            //this.props.history.push("/ui/home");
         }
     }
 
@@ -94,7 +99,8 @@ class SignUp extends React.Component<any,any> {
                             localStorage.setItem('Email', response.data.email);
                             localStorage.setItem('Id', response.data.id);
                             localStorage.setItem('PhoneNumber', response.data.phoneNumber);
-                            this.props.history.push("/ui/home");
+                            this.setState({isUserLoggedIn:true});
+                            //this.props.history.push("/ui/home");
                         }
                         else {
                             console.log("wrong password");
@@ -126,6 +132,7 @@ class SignUp extends React.Component<any,any> {
         const { errors } = this.state;
         return (
             <div className="signUp">
+                {this.state.isUserLoggedIn?<App user="Prasanna"/>:""}
                 <div className="caption">
                     <div><img className="image" src={logo} /></div>
                     <div className="captiontitle">

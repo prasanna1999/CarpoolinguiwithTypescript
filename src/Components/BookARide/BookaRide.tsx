@@ -89,7 +89,7 @@ class BookARide extends React.Component<any,any> {
             //     })
             this.setState({ AvailableRides: trackPromise(await AvailableRides(this.state.From,this.state.To,this.state.NoOfSeats,date)) })
             this.state.AvailableRides.forEach(async function (ride:any) {
-                this.setState({ userName:this.state.userName.concat(await UserNames(ride.userId)) })
+                //this.setState({ userName:this.state.userName.concat(await UserNames(ride.userId)) })
             })
         }
     }
