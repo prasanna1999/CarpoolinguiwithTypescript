@@ -4,7 +4,7 @@ import './BookingDetails.scss';
 import axios from 'axios';
 import { BookingStatus } from '../enum';
 import { Link } from 'react-router-dom';
-import {BookingData,CancelBooking} from './BookingDetailsService';
+import {BookingData,CancelBooking} from '../../Services/BookingDetailsService';
 
 class BookingDetails extends React.Component<any,any> {
     constructor(props:any) {

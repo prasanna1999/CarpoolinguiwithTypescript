@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import User from '../User';
-import {ProfileData} from './ProfileServise';
+import {ProfileData} from '../../Services/ProfileServise';
 toast.configure({
     autoClose: 2000,
     draggable: false,

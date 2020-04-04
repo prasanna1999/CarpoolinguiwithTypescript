@@ -4,7 +4,7 @@ import './OfferRide.scss';
 import { DocumentCard, Icon, DatePicker, Toggle } from 'office-ui-fabric-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {AddVehicle,AddRide,AddLocations} from './OfferARideService';
+import {AddVehicle,AddRide,AddLocations} from '../../Services/OfferARideService';
 toast.configure({
     autoClose: 2000,
     draggable: false,

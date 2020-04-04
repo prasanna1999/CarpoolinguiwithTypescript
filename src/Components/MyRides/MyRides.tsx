@@ -7,8 +7,8 @@ import 'office-ui-fabric-react/dist/css/fabric.css';
 import './MyRides.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {Rides,Bookings,UserId,UserName} from './MyRidesService';
-import { BookingData } from '../BookingDetails/BookingDetailsService';
+import {Rides,Bookings,UserId,UserName} from '../../Services/MyRidesService';
+import { BookingData } from '../../Services/BookingDetailsService';
 
 class MyRides extends React.Component<any,any> {
     constructor(props:any) {

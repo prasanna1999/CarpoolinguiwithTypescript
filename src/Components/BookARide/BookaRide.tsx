@@ -7,7 +7,7 @@ import logo from 'D:/carpoolingui/src/Images/logo.png';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { toast } from 'react-toastify';
 import 'font-awesome/css/font-awesome.min.css';
-import {AvailableRides,UserNames,BookRide} from './BookARideService';
+import {AvailableRides,UserNames,BookRide} from '../../Services/BookARideService';
 import { trackPromise } from 'react-promise-tracker';
 
 class BookARide extends React.Component<any,any> {
