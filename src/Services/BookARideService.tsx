@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import {RideData} from '../Contracts/BookARideContract';
 
-export const AvailableRides= (From:string,To:string,NoOfSeats:any,Date:any) => axios.get('https://localhost:44334/api/ride/'+From+"/"+To+"/"+NoOfSeats+"/"+Date)
+export const AvailableRides= (RideData:RideData) => axios.get('https://localhost:44334/api/ride/'+RideData.From+"/"+RideData.To+"/"+RideData.NoOfSeats+"/"+RideData.Date)
 .then(respose=>{
     return respose.data;
 })
