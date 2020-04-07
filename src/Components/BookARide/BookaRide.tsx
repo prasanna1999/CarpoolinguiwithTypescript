@@ -7,11 +7,12 @@ import logo from 'D:/carpoolingui/src/Images/logo.png';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { toast } from 'react-toastify';
 import 'font-awesome/css/font-awesome.min.css';
-import {AvailableRides,UserNames,BookRide} from '../../Services/BookARideService';
+import { AvailableRides, UserNames, BookRide } from '../../Services/BookARideService';
 import { trackPromise } from 'react-promise-tracker';
+import { RideData } from '../../Contracts/BookARideContract'
 
-class BookARide extends React.Component<any,any> {
-    constructor(props:any) {
+class BookARide extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = {
             isSubmitClicked: false, isValid: true,
@@ -26,7 +27,7 @@ class BookARide extends React.Component<any,any> {
         this.props.history.push("/ui/offeraride");
     }
 
-    setClass(e:any) {
+    setClass(e: any) {
         if (e.target.innerText == null)
             this.state.errors.Time = "Please select atleast one";
         else {
@@ -56,10 +57,10 @@ class BookARide extends React.Component<any,any> {
         }
     }
 
-    validateForm = (errors:any) => {
+    validateForm = (errors: any) => {
         let valid = true;
         Object.values(errors).forEach(
-            (val:any) => val.length > 0 && (valid = false)
+            (val: any) => val.length > 0 && (valid = false)
         );
         return valid;
     }
@@ -87,14 +88,15 @@ class BookARide extends React.Component<any,any> {
             //     .catch(error => {
             //         this.setState({ AvailableRide: "" })
             //     })
-            this.setState({ AvailableRides: trackPromise(await AvailableRides(this.state.From,this.state.To,this.state.NoOfSeats,date)) })
-            this.state.AvailableRides.forEach(async function (ride:any) {
+            let data = { From: this.state.From, To: this.state.To, NoOfSeats: this.state.NoOfSeats, Date: this.state.date };
+            this.setState({ AvailableRides: trackPromise(await AvailableRides(data)) })
+            this.state.AvailableRides.forEach(async function (ride: any) {
                 //this.setState({ userName:this.state.userName.concat(await UserNames(ride.userId)) })
             })
         }
     }
 
-    handleDate = (event:any) => {
+    handleDate = (event: any) => {
         let date = new Date();
         date.setHours(0)
         date.setMinutes(0)
@@ -106,7 +108,7 @@ class BookARide extends React.Component<any,any> {
             this.state.errors.Date = ""
         this.setState({ Date: event });
     }
-    handleChange = (event:any) => {
+    handleChange = (event: any) => {
         event.preventDefault();
         const { name, value } = event.target;
         let errors = this.state.errors;
@@ -133,7 +135,7 @@ class BookARide extends React.Component<any,any> {
         this.setState({ errors, [name]: value });
         this.setState({ [name]: event.target.value });
     }
-    _onFormatDate = (date:any) => {
+    _onFormatDate = (date: any) => {
         let month, day;
         if (date.getMonth() + 1 < 10)
             month = '0' + (date.getMonth() + 1);
@@ -146,9 +148,10 @@ class BookARide extends React.Component<any,any> {
         return (date.getFullYear()) + '-' + (month) + '-' + (day);
     };
 
-    handleBooking = async (id:any) => {
+    handleBooking = async (id: any) => {
         let index = this.state.AvailableRides.findIndex((x: { id: any; }) => x.id == id);
-        await BookRide(this.state.From,this.state.To,this.state.NoOfSeats,id,index,AvailableRides);
+        let BookingData={From:this.state.From,To:this.state.To,NoOfSeats:this.state.NoOfSeats,id:this.state.id,index:this.state.index,AvailableRides:this.state.AvailableRides}
+        await BookRide(BookingData);
         // axios.post('https://localhost:44334/api/booking/', {
         //     From: this.state.From,
         //     To: this.state.To,
@@ -214,7 +217,7 @@ class BookARide extends React.Component<any,any> {
                 {this.state.isSubmitClicked ?
                     <div className="booking">
                         <div className="machedRides">
-                            { this.state.AvailableRides.filter((AvailableRide: { userId: string | null; }) => AvailableRide.userId != localStorage.getItem('Id')).length > 0 ? <div className="matches">Your Matches</div> : <div className="matches">Sorry, No matches available on the requested date</div>}
+                            {this.state.AvailableRides.filter((AvailableRide: { userId: string | null; }) => AvailableRide.userId != localStorage.getItem('Id')).length > 0 ? <div className="matches">Your Matches</div> : <div className="matches">Sorry, No matches available on the requested date</div>}
                             <div className="hidedisplay">{this.index = 0}</div>
                             {this.state.AvailableRides.filter((AvailableRide: { userId: string | null; }) => AvailableRide.userId != localStorage.getItem('Id')).map((AvailableRide: { from: React.ReactNode; to: React.ReactNode; date: string | any[]; price: React.ReactNode; noOfSeats: React.ReactNode; id: any; }) =>
                                 <DocumentCard className="card">
@@ -241,7 +244,7 @@ class BookARide extends React.Component<any,any> {
                                             <td>Date</td><td>Time</td>
                                         </tr>
                                         <tr className="values">
-                                            <td>{AvailableRide.date.slice(0, 10)}</td><td>{AvailableRide.date.slice(11, )}</td>
+                                            <td>{AvailableRide.date.slice(0, 10)}</td><td>{AvailableRide.date.slice(11)}</td>
                                         </tr>
                                         <tr className="names">
                                             <td>Price</td><td>Seat Availability</td>

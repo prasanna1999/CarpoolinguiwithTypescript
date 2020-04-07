@@ -4,15 +4,16 @@ import './OfferRide.scss';
 import { DocumentCard, Icon, DatePicker, Toggle } from 'office-ui-fabric-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {AddVehicle,AddRide,AddLocations} from '../../Services/OfferARideService';
+import { AddVehicle, AddRide, AddLocations } from '../../Services/OfferARideService';
+import Rides from '../Rides';
 toast.configure({
     autoClose: 2000,
     draggable: false,
 });
-class OfferRide extends React.Component<any,any> {
+class OfferRide extends React.Component<any, any> {
     isVehicleExists: any;
     _onParseDateFromString: ((dateStr: string) => Date | null) | undefined;
-    constructor(props:any) {
+    constructor(props: any) {
         super(props);
         this.state = {
             noOfStops: 1, id: "", isSubmitClicked: false, isValid: true, isStopValid: true, seatid: "",
@@ -43,7 +44,7 @@ class OfferRide extends React.Component<any,any> {
         }
     }
     locationName = "";
-    handleStop = (e:any) => {
+    handleStop = (e: any) => {
         this.locationName = e.target.value;
     }
 
@@ -65,7 +66,8 @@ class OfferRide extends React.Component<any,any> {
             //     .catch(error => {
             //         toast("Unable to add ride!");
             //     })
-            await AddVehicle(userId,this.state.VehicleModel,this.state.VehicleNumber);
+            let Vehicle={userId:userId,VehicleModel:this.state.VehicleModel,VehicleNumber:this.state.VehicleNumber};
+            await AddVehicle(Vehicle);
             // axios.post('https://localhost:44334/api/ride/',
             //     {
             //         UserId: userId,
@@ -84,13 +86,15 @@ class OfferRide extends React.Component<any,any> {
             //     .catch(error => {
             //         toast("Unable to add ride!");
             //     })
-            await AddRide(userId,this.state.From,this.state.To,this.state.VehicleModel,this.state.NoOfSeats,this.state.Price,date,this._onFormatDate(date))
+            let Ride={userId:userId,From:this.state.From,To:this.state.To,VehicleModel:this.state.VehicleModel,NoOfSeats:this.state.NoOfSeats,Price:this.state.NoOfSeats,date:date,formatteddate:this._onFormatDate(date)}
+            await AddRide(Ride);
             let locations = this.state.Stops;
             if (this.locationName != "") {
                 locations.push(this.locationName);
             }
-            locations.map(async (location:any) => {
-                await AddLocations(userId,this.state.From,this.state.To,this._onFormatDate(this.state.Date),location)
+            locations.map(async (location: any) => {
+                let Location={userId:userId,From:this.state.From,To:this.state.To,formattedDate:this._onFormatDate(this.state.Date),location:location}
+                await AddLocations(Location);
                 // axios.post('https://localhost:44334/api/location/',
                 //     {
                 //         RideId: userId + this.state.From + this.state.To + this._onFormatDate(this.state.Date),
@@ -122,7 +126,7 @@ class OfferRide extends React.Component<any,any> {
             this.setState({ isSubmitClicked: true });
         }
     }
-    settimeClass(e:any) {
+    settimeClass(e: any) {
         if (e.target.innerText == null)
             this.state.errors.Time = "Please select atleast one";
         else
@@ -130,15 +134,15 @@ class OfferRide extends React.Component<any,any> {
         this.setState({ id: e.target.id, Time: 2 });
     }
 
-    validateForm = (errors:any) => {
+    validateForm = (errors: any) => {
         let valid = true;
         Object.values(errors).forEach(
-            (val:any) => val.length > 0 && (valid = false)
+            (val: any) => val.length > 0 && (valid = false)
         );
         return valid;
     }
 
-    setClass(e:any) {
+    setClass(e: any) {
         if (e.target.innerText == null)
             this.state.stoperrors.NoOfSeats = "Please select atleast one";
         else
@@ -149,7 +153,7 @@ class OfferRide extends React.Component<any,any> {
     handleToggle = () => {
         this.props.history.push("/ui/bookaride");
     }
-    handleDate = (event:any) => {
+    handleDate = (event: any) => {
         let date = new Date();
         date.setHours(0)
         date.setMinutes(0)
@@ -161,7 +165,7 @@ class OfferRide extends React.Component<any,any> {
             this.state.errors.Date = ""
         this.setState({ Date: event });
     }
-    handleChange = (event:any) => {
+    handleChange = (event: any) => {
         event.preventDefault();
         const { name, value } = event.target;
         let errors = this.state.errors;
@@ -199,7 +203,7 @@ class OfferRide extends React.Component<any,any> {
         this.setState({ errors, [name]: value });
         this.setState({ [name]: event.target.value });
     }
-    _onFormatDate = (date:any) => {
+    _onFormatDate = (date: any) => {
         let month, day;
         if (date.getMonth() + 1 < 10)
             month = '0' + (date.getMonth() + 1);

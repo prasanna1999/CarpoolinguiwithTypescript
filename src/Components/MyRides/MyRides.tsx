@@ -7,11 +7,11 @@ import 'office-ui-fabric-react/dist/css/fabric.css';
 import './MyRides.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {Rides,Bookings,UserId,UserName} from '../../Services/MyRidesService';
+import { Rides, Bookings, UserId, UserName } from '../../Services/MyRidesService';
 import { BookingData } from '../../Services/BookingDetailsService';
 
-class MyRides extends React.Component<any,any> {
-    constructor(props:any) {
+class MyRides extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = { Rides: [], Bookings: [], userName: [] };
     }
@@ -28,17 +28,17 @@ class MyRides extends React.Component<any,any> {
         //     .catch(error => {
         //         this.setState({ Rides: [] })
         //     })
-        try{
-            this.setState({Rides:await Rides()})
+        try {
+            this.setState({ Rides: await Rides() })
         }
         catch{
-            this.setState({Rides:[]})
+            this.setState({ Rides: [] })
         }
-        this.setState({Bookings:Bookings})
-        this.state.Bookings.forEach(function (booking:any) {
+        this.setState({ Bookings: Bookings })
+        this.state.Bookings.forEach(function (booking: any) {
             console.log(booking)
             let userId;
-            userId=UserId(booking.rideId);
+            userId = UserId(booking.rideId);
             //this.setState(UserName:this.state.userName.concat(UserName))
         })
         // axios.get('https://localhost:44334/api/booking/userBookings/' + localStorage.getItem('Id'))
@@ -75,7 +75,7 @@ class MyRides extends React.Component<any,any> {
                         <div className="hidedisplay">{this.index = 0}</div>
                         <div className="ms-Grid" dir="ltr">
                             <div className="ms-Grid-row">
-                                {this.state.Bookings.map((booking:any) =>
+                                {this.state.Bookings.map((booking: any) =>
                                     <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg10 ms-xl10 ms-xxl6 ms-xxxl6">
                                         <DocumentCard className="cards">
                                             <div className="ms-Grid" dir="ltr">
@@ -117,7 +117,7 @@ class MyRides extends React.Component<any,any> {
                                                             Time
                                                         </div>
                                                         <div className="values">
-                                                            {booking.date.slice(11, )}
+                                                            {booking.date.slice(11)}
                                                         </div>
                                                         <div className="names">
                                                         </div>
@@ -139,7 +139,7 @@ class MyRides extends React.Component<any,any> {
                         {this.state.Rides.length > 0 ? "" : <div className="heading">You have not offered any ride yet.</div>}
                         <div className="ms-Grid" dir="ltr">
                             <div className="ms-Grid-row">
-                                {this.state.Rides.map((ride:any) =>
+                                {this.state.Rides.map((ride: any) =>
                                     <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg10 ms-xl10 ms-xxl6 ms-xxxl6">
                                         <DocumentCard className="cards">
                                             <div className="ms-Grid" dir="ltr">
@@ -175,7 +175,7 @@ class MyRides extends React.Component<any,any> {
                                                             Time
                                                         </div>
                                                         <div className="values">
-                                                            {ride.date.slice(11, )}
+                                                            {ride.date.slice(11)}
                                                         </div>
                                                         <div className="names">
                                                         </div>

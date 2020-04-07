@@ -2,16 +2,16 @@ import React from 'react';
 import { DocumentCard, Label, TextField } from 'office-ui-fabric-react';
 import './BookingDetails.scss';
 import axios from 'axios';
-import { BookingStatus } from '../enum';
+import { BookingStatus } from '../Enum';
 import { Link } from 'react-router-dom';
-import {BookingData,CancelBooking} from '../../Services/BookingDetailsService';
+import { BookingData, CancelBooking } from '../../Services/BookingDetailsService';
 
-class BookingDetails extends React.Component<any,any> {
-    constructor(props:any) {
+class BookingDetails extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = { Booking: [] }
     }
-    id:string ="";
+    id: string = "";
     async componentDidMount() {
         this.id = this.props.match.params.id;
         // axios.get('https://localhost:44334/api/booking/' + this.id)
@@ -29,8 +29,8 @@ class BookingDetails extends React.Component<any,any> {
         //         console.log("Cannot get data");
         //         this.setState({ Booking: [] })
         //     })
-        try{
-            this.setState({Booking:await BookingData(this.id)})
+        try {
+            this.setState({ Booking: await BookingData(this.id) })
         }
         catch{
             this.setState({ Booking: [] })

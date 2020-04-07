@@ -5,13 +5,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import User from '../User';
-import {ProfileData} from '../../Services/ProfileServise';
+import { ProfileData } from '../../Services/ProfileServise';
 toast.configure({
     autoClose: 2000,
     draggable: false,
 });
-class Profile extends React.Component<any,any> {
-    constructor(props:any) {
+class Profile extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = {
             Name: localStorage.getItem('Name'), Email: localStorage.getItem('Email'), PhoneNumber: localStorage.getItem('PhoneNumber'), isValid: true,
@@ -24,7 +24,8 @@ class Profile extends React.Component<any,any> {
         }
         else {
             this.setState({ isValid: true });
-            await ProfileData(this.state.Name,this.state.Email,this.state.PhoneNumber)
+            let UserData={Name:this.state.Name,Email:this.state.Email,PhoneNumber:this.state.PhoneNumber};
+            await ProfileData(UserData);
             // axios.put('https://localhost:44334/api/user/' + localStorage.getItem('Id'), {
             //     Name: this.state.Name,
             //     Email: this.state.Email,
@@ -40,14 +41,14 @@ class Profile extends React.Component<any,any> {
             //     })
         }
     }
-    validateForm = (errors:any) => {
+    validateForm = (errors: any) => {
         let valid = true;
         Object.values(errors).forEach(
-            (val:any) => val.length > 0 && (valid = false)
+            (val: any) => val.length > 0 && (valid = false)
         );
         return valid;
     }
-    handleChange = (e:any) => {
+    handleChange = (e: any) => {
         e.preventDefault();
         const { name, value } = e.target;
         let errors = this.state.errors;

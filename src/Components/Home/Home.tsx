@@ -2,7 +2,7 @@ import React from 'react';
 import './Home.scss';
 import { Link } from 'react-router-dom';
 
-function Home(props:any) {
+function Home(props: any) {
   return (
     <div className="home">
       <div className="content">

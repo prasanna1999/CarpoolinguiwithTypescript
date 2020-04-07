@@ -2,9 +2,9 @@ import React from 'react';
 import './NavBar.scss';
 import User from '../User';
 import logo from 'D:/carpoolingui/src/Images/logo.png';
-import { NavLink, Link,withRouter } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
-function NavBar(props:any) {
+function NavBar(props: any) {
   function logout() {
     localStorage.setItem('Name', '');
     localStorage.setItem('Email', '');
@@ -13,8 +13,8 @@ function NavBar(props:any) {
   }
   return (
     <div className="navbar">
-      {localStorage.getItem('Name')==''?props.history.push('/signup') : ""}
-      {localStorage.getItem('Name') ==null ? props.history.push('/signup') : ""}
+      {localStorage.getItem('Name') == '' ? props.history.push('/signup') : ""}
+      {localStorage.getItem('Name') == null ? props.history.push('/signup') : ""}
       {console.log(localStorage.getItem('Name'))}
       <div className="logo">
         <Link to="/ui/home"><img src={logo} /></Link>

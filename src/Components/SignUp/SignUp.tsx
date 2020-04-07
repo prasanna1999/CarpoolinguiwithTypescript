@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import App from '../App/App';
 
-class SignUp extends React.Component<any,any> {
-    constructor(props:any) {
+class SignUp extends React.Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = ({
-            isUserLoggedIn:false,
+            isUserLoggedIn: false,
             isLoginClicked: false,
             isUserExists: false,
             isCredentialsValidated: false,
@@ -18,24 +18,24 @@ class SignUp extends React.Component<any,any> {
         });
     }
     componentDidUpdate() {
-        console.log(localStorage.getItem('Id') != null&&'')
-        if (localStorage.getItem('Id') != null&&''){
-            this.setState({isUserLoggedIn:true});
+        console.log(localStorage.getItem('Id') != null && '')
+        if (localStorage.getItem('Id') != null && '') {
+            this.setState({ isUserLoggedIn: true });
             //this.props.history.push("/ui/home");
         }
     }
     changeState() {
-        let status=!this.state.isSignUpSelected;
+        let status = !this.state.isSignUpSelected;
         this.setState({ isSignUpSelected: status });
     }
-    showHide(e:any) {
+    showHide(e: any) {
         e.preventDefault();
         e.stopPropagation();
         this.setState({
             passwordtype: this.state.passwordtype === 'input' ? 'password' : 'input'
         });
     }
-    handleChange = (event:any) => {
+    handleChange = (event: any) => {
         event.preventDefault();
         const { name, value } = event.target;
         let errors = this.state.errors;
@@ -74,7 +74,7 @@ class SignUp extends React.Component<any,any> {
             localStorage.setItem('Email', this.state.Email);
             localStorage.setItem('Id', this.state.Email.slice(0, index) + this.state.Email);
             localStorage.setItem('PhoneNumber', '9876543210');
-            this.setState({isUserLoggedIn:true});
+            this.setState({ isUserLoggedIn: true });
             //this.props.history.push("/ui/home");
         }
     }
@@ -99,7 +99,7 @@ class SignUp extends React.Component<any,any> {
                             localStorage.setItem('Email', response.data.email);
                             localStorage.setItem('Id', response.data.id);
                             localStorage.setItem('PhoneNumber', response.data.phoneNumber);
-                            this.setState({isUserLoggedIn:true});
+                            this.setState({ isUserLoggedIn: true });
                             //this.props.history.push("/ui/home");
                         }
                         else {
@@ -110,19 +110,19 @@ class SignUp extends React.Component<any,any> {
         }
     }
 
-    validateLoginForm = (errors:any) => {
+    validateLoginForm = (errors: any) => {
         errors.ConfirmPassword = "";
         let valid = true;
         Object.values(errors).forEach(
-            (val:any) => val.length > 0 && (valid = false)
+            (val: any) => val.length > 0 && (valid = false)
         );
         return valid;
     }
 
-    validateForm = (errors:any) => {
+    validateForm = (errors: any) => {
         let valid = true;
         Object.values(errors).forEach(
-            (val:any) => val.length > 0 && (valid = false)
+            (val: any) => val.length > 0 && (valid = false)
         );
         return valid;
     }
@@ -132,7 +132,7 @@ class SignUp extends React.Component<any,any> {
         const { errors } = this.state;
         return (
             <div className="signUp">
-                {this.state.isUserLoggedIn?<App user="Prasanna"/>:""}
+                {this.state.isUserLoggedIn ? <App user="Prasanna" /> : ""}
                 <div className="caption">
                     <div><img className="image" src={logo} /></div>
                     <div className="captiontitle">

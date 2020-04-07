@@ -2,14 +2,14 @@ import React from 'react';
 import { DocumentCard, Label, TextField } from 'office-ui-fabric-react';
 import logo from 'D:/carpoolingui/src/Images/logo.png';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { RideStatus, BookingStatus } from '../enum';
+import { RideStatus, BookingStatus } from '../Enum';
 import { Link } from 'react-router-dom';
 import './RideDetails.scss';
 import axios from 'axios';
 
-class RideDetails extends React.Component<any,any> {
+class RideDetails extends React.Component<any, any> {
     id: any;
-    constructor(props:any) {
+    constructor(props: any) {
         super(props);
         this.state = { Ride: [], ViaPoints: [], Bookings: [], userName: [] }
     }
@@ -25,7 +25,7 @@ class RideDetails extends React.Component<any,any> {
                     })
                 }
                 let users;
-                this.state.Bookings.forEach(function (booking:any) {
+                this.state.Bookings.forEach(function (booking: any) {
                     let userId;
                     axios.get('https://localhost:44334/api/user/' + booking.userId)
                         .then(response => {
@@ -61,7 +61,7 @@ class RideDetails extends React.Component<any,any> {
             })
         axios.put('https://localhost:44334/api/booking/' + this.id)
     }
-    approveBooking(booking:any) {
+    approveBooking(booking: any) {
         axios.put('https://localhost:44334/api/booking/' + booking.id, {
             Status: 1,
             NoOfPersons: booking.noOfPersons
@@ -70,7 +70,7 @@ class RideDetails extends React.Component<any,any> {
                 this.componentDidMount();
             })
     }
-    rejectBooking(booking:any) {
+    rejectBooking(booking: any) {
         axios.put('https://localhost:44334/api/booking/' + booking.id, {
             Status: 2,
             NoOfPersons: booking.noOfPersons
@@ -93,7 +93,7 @@ class RideDetails extends React.Component<any,any> {
                                 <Label>To</Label>
                                 <TextField name="to" value={this.state.Ride.to} disabled />
                                 {this.state.ViaPoints.length > 0 ? <Label>ViaPoints</Label> : ""}
-                                {this.state.ViaPoints.map((viaPoint:any) =>
+                                {this.state.ViaPoints.map((viaPoint: any) =>
                                     <TextField value={viaPoint.locationName} disabled />
                                 )}
                                 <Label>Date</Label>
@@ -110,59 +110,59 @@ class RideDetails extends React.Component<any,any> {
                             <div className="ms-Grid" dir="ltr">
                                 <div className="ms-Grid-row">
                                     <div className="hidedisplay">{this.index = 0}</div>
-                                    {this.state.Bookings.map((booking:any) =>
+                                    {this.state.Bookings.map((booking: any) =>
                                         <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg6 ms-xl4 ms-xxl4 bookingCard">
                                             <DocumentCard className="cards">
-                                            <div className="ms-Grid" dir="ltr">
-                                                <div className="ms-Grid-row details">
-                                                    <div className="ms-Grid-col ms-sm8">
-                                                        <div className="name">{this.state.userName[this.index]}</div>
-                                                    </div>
-                                                    <div className="ms-Grid-col ms-sm4">
-                                                        <img src={logo} />
-                                                    </div>
-                                                    <div className="ms-Grid-col ms-sm12 ms-md6">
-                                                        <div className="names">
-                                                            From
+                                                <div className="ms-Grid" dir="ltr">
+                                                    <div className="ms-Grid-row details">
+                                                        <div className="ms-Grid-col ms-sm8">
+                                                            <div className="name">{this.state.userName[this.index]}</div>
                                                         </div>
-                                                        <div className="values">
-                                                            {booking.from}
+                                                        <div className="ms-Grid-col ms-sm4">
+                                                            <img src={logo} />
                                                         </div>
-                                                        <div className="names">
-                                                            Date
+                                                        <div className="ms-Grid-col ms-sm12 ms-md6">
+                                                            <div className="names">
+                                                                From
                                                         </div>
-                                                        <div className="values">
-                                                            {booking.date.slice(0, 10)}
+                                                            <div className="values">
+                                                                {booking.from}
+                                                            </div>
+                                                            <div className="names">
+                                                                Date
                                                         </div>
-                                                        <div className="names">
-                                                            Price
+                                                            <div className="values">
+                                                                {booking.date.slice(0, 10)}
+                                                            </div>
+                                                            <div className="names">
+                                                                Price
                                                         </div>
-                                                        <div className="values">
-                                                            {booking.price}
+                                                            <div className="values">
+                                                                {booking.price}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="ms-Grid-col ms-sm12 ms-md6">
-                                                        <div className="names">
-                                                            To
+                                                        <div className="ms-Grid-col ms-sm12 ms-md6">
+                                                            <div className="names">
+                                                                To
                                                         </div>
-                                                        <div className="values">
-                                                            {booking.to}
+                                                            <div className="values">
+                                                                {booking.to}
+                                                            </div>
+                                                            <div className="names">
+                                                                Time
                                                         </div>
-                                                        <div className="names">
-                                                            Time
+                                                            <div className="values">
+                                                                {booking.date.slice(11)}
+                                                            </div>
+                                                            <div className="names">
+                                                                No Of Seats
                                                         </div>
-                                                        <div className="values">
-                                                            {booking.date.slice(11, )}
-                                                        </div>
-                                                        <div className="names">
-                                                            No Of Seats
-                                                        </div>
-                                                        <div className="values">
-                                                            {booking.noOfPersons}
+                                                            <div className="values">
+                                                                {booking.noOfPersons}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                                 {/* <table className="details">
                                                     <tr className="name">
                                                         <td colspan="2">{this.state.userName[this.index++]}</td>
